@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Color</title>
+    <link rel="stylesheet" href="./css/main.css" />
+</head>
+
+<body>
+    <header class="top-header">
+        <h1 class="title">Bootcamp FullStack</h1>
+        <p class="subtitle">Módulo 1 - Fundamentos</p>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+
+                <div class="inputs-range">
+                    <div class="name-input-text">
+                        <label class="input-name" for="">Red</label>
+                        <input class="textDisable" id="textRed" type="text" readonly/>
+                    </div>
+                    <input class="item-input" id="colorRed" type="range" max="255" value="0" step="1"
+                        onchange="changeColor()" />
+                </div>
+
+                <div class="inputs-range">
+                    <div class="name-input-text">
+                        <label class="input-name" for="">Green</label>
+                        <input class="textDisable" id="textGreen" type="text" readonly />
+                    </div>
+                    <input class="item-input" id="colorGreen" type="range" max="255" value="0" step="1"
+                        onchange="changeColor()" />
+                </div>
+
+                <div class="inputs-range">
+                    <div class="name-input-text">
+                        <label class="input-name" for="">Blue</label>
+                        <input class="textDisable" id="textBlue" type="text" readonly />
+                    </div>
+                    <input class="item-input" id="colorBlue" type="range" max="255" value="0" step="1"
+                        onchange="changeColor()" />
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <div id="boxColorChange" class="boxColor"></div>
+        </section>
+    </main>
+
+
+
+
+    <footer>
+        <p> by Marília Macedo</p>
+
+    </footer>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
