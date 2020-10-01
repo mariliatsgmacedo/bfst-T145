@@ -1,0 +1,148 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
+    list-style: none;
+}
+
+
+header{
+    background-color: #0562ee;
+    text-align: center;
+    letter-spacing: 5px;
+    color: white;
+    padding: 1rem;
+}
+
+main{
+  
+   height: 100%;
+
+}
+
+/*Config Section Search - Input*/
+.section-search{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+}
+
+.div-input-search{
+    padding-right: 15px;
+}
+
+.input-box{
+    width: 40rem;
+    height: 2rem;
+    border-radius: 5px;
+    color: black;
+    padding: 1rem;
+    border: 1px solid blue;
+}
+
+.input-box-button{
+    text-align: center;
+    border: none;
+    font-weight: bold;
+   cursor: pointer;
+    padding: 6px;
+    color: #f5f5f5;
+    background-color: #0562ee;
+    border-radius: 8px;
+}
+
+.input-box-button:hover{
+    background-color: #2f60aa;
+}
+
+/*Config Section Results*/
+.section-result{
+    display: flex;
+    margin-left: 22%;
+    padding: 2rem;
+    
+    
+}
+.div-section-qtd,
+.div-box-left{
+    border: 2px dotted black;
+    padding: 3rem;
+}
+
+
+.div-items-list{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 1rem;
+}
+
+.div-items-image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+
+}
+
+.span-warning{
+    text-align: center;
+    font-size: 25px;
+    margin-top: 2rem;
+}
+
+/*Config Section Estatistica*/
+.title-box-right{
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.data-list{
+    font-size: 30px;
+    background-color: rgba(218, 214, 214, 0.5);
+    border-radius: 5px;
+}
+
+.data-item{
+    padding: 2rem;
+}
+
+footer{
+    color: white;
+    font-weight: 400;
+    background-color: #0562ee;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 5px;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    
+    
+}
+
+footer p{
+    padding: 10px;
+}
+
+.div-icons-footer a{
+    font-size: 20px;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
