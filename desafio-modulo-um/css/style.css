@@ -50,14 +50,14 @@ main{
     font-weight: bold;
    cursor: pointer;
     padding: 6px;
-    color: #f5f5f5;
-    background-color: #0562ee;
+    color: black;
+    
     border-radius: 8px;
 }
 
-.input-box-button:hover{
+/* .input-box-button:hover{
     background-color: #2f60aa;
-}
+} */
 
 /*Config Section Results*/
 .section-result{

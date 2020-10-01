@@ -29,6 +29,7 @@ async function fetchUsersList() {
 }
 
 function renderFoundedUsers() {
+    //TODO: Create rule to disable button when the input is null
     let searchName = inputUserSearch.value.toLowerCase();
     if(searchName.trim().length < 1) return
 
@@ -40,7 +41,6 @@ function renderFoundedUsers() {
 }
 
 function populeUserViewList(list){
-    //TODO: Create HTML with UL tag to list all result to users
     let countUsers = list.length
     let femaleCounter = list.filter(user => user.gender === "female").length
     let maleCounter = list.filter(user => user.gender === "male").length
@@ -86,28 +86,3 @@ function onKeyPress(event){
 
 inputButton.addEventListener('click', renderFoundedUsers)
 inputUserSearch.addEventListener('keyup', onKeyPress)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//let inputUserSearch = null
-// let foundedUsers = 0
-// let aboutSearch = 0
-
-// let inputUserSearch = document.querySelector('#input-user-search')
-// let inputButton = document.querySelector('#input-button')
-
-// let foundedUsers = document.querySelector('#founded-users')
-// let aboutSearch = document.querySelector('#about-search')
