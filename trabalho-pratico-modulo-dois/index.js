@@ -17,9 +17,9 @@ async function createFileStates() {
 
     states.forEach(state => {
         state.cities = cities.filter(city => city.Estado === state.ID)
-        try{
+        try {
             fs.writeFile(`${state.Sigla}.json`, JSON.stringify(state.cities))
-        } catch (error){
+        } catch (error) {
             console.log(error)
         }
     })
@@ -32,6 +32,12 @@ async function createFileStates() {
  * e retorne a quantidade de cidades daquele estado.
  */
 
+readCitiesFiles('DF')
+
+async function readCitiesFiles(uf) {
+    const data = JSON.parse(await fs.readFile(`${uf}.json`))
+    console.log(data.length)
+}
 
 /**
  * Criar um método que imprima no console um array com o UF dos cinco estados que mais possuem cidades,
