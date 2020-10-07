@@ -1,7 +1,8 @@
 import { promises as fs } from 'fs'
 
 const DIR_STATE = "states"
-createFileStates()
+
+//createFileStates()
 
 async function createFileStates() {
 
@@ -103,9 +104,47 @@ async function cityBigNameStates() {
         states.forEach(state => {
             state.cityLongestName = state.cities.reduce((a, b) => a.Nome.length > b.Nome.length ? a : b)
             list.push(`${state.cityLongestName.Nome} - ${state.Sigla}`)
+            return state
         })
-        console.log(list)
+        console.table(list)
+        return Promise.all(states)
     } catch (error) {
         console.log(`Error: cityBigNameStates \n ${error}`)
     }
+}
+
+//citySmallerNameStates()
+
+async function citySmallerNameStates() {
+    try {
+        let list = []
+        let states = await loadAllCitiesSpliteByState()
+        states.forEach(state => {
+            state.cityLongestName = state.cities.reduce((a, b) => a.Nome.length < b.Nome.length ? a : b)
+            list.push(`${state.cityLongestName.Nome} - ${state.Sigla}`)
+        })
+        console.log(list.sort((a,b) => a - b))
+    } catch (error) {
+        console.log(`Error: citySmallerNameStates \n ${error}`)
+    }
+}
+
+//cityBiggerAtAll()
+
+async function cityBiggerAtAll() {
+
+    let nameBiggerAtAll = await cityBigNameStates()
+
+    let biggest = nameBiggerAtAll.reduce((a, b) => a.cityLongestName.Nome.length > b.cityLongestName.Nome.length ? a : b)
+    console.log(`${biggest.Sigla} - ${biggest.cityLongestName.Nome}`)
+}
+
+
+//citySmallerAtAll()
+
+async function citySmallerAtAll() {
+
+    let nameSmallerAtAll = await cityBigNameStates()
+    let smaller = nameSmallerAtAll.reduce((a, b) => a.cityLongestName.Nome.length < b.cityLongestName.Nome.length ? a : b)
+    console.log(` teste ${smaller.Sigla} - ${smaller.cityLongestName.Nome}`)
 }
