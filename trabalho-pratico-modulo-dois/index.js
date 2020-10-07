@@ -1,9 +1,6 @@
 import { promises as fs } from 'fs'
-/**
- * Criar uma função que irá criar um arquivo JSON para cada estado representado no arquivo Estados.json,
- '* e o seu conteúdo será um array das cidades pertencentes a aquele estado, de acordo com o arquivo Cidades.json.
- '* O nome do arquivo deve ser o UF do estado, por exemplo: MG.json.
- */
+
+const DIR_STATE = "states"
 
 createFileStates()
 
@@ -15,10 +12,14 @@ async function createFileStates() {
     const states = JSON.parse(statesJson)
     const cities = JSON.parse(citiesJson)
 
+    //create dir to separete states files 
+    fs.mkdir("states", { recursive: true })
+
     states.forEach(state => {
+        //filter cities by state id and put it in the cities property on state object
         state.cities = cities.filter(city => city.Estado === state.ID)
         try {
-            fs.writeFile(`${state.Sigla}.json`, JSON.stringify(state.cities))
+            fs.writeFile(`${DIR_STATE}/${state.Sigla}.json`, JSON.stringify(state.cities))
         } catch (error) {
             console.log(error)
         }
@@ -26,62 +27,71 @@ async function createFileStates() {
 
 }
 
-/**
- * Criar uma função que recebe como parâmetro o UF do estado,
- * realize a leitura do arquivo JSON correspondente
- * e retorne a quantidade de cidades daquele estado.
- */
-
 readCitiesFiles('DF')
 
 async function readCitiesFiles(uf) {
     const data = JSON.parse(await fs.readFile(`${uf}.json`))
-    console.log(data.length)
+    console.log(`${uf}: ${data.length} cidades`)
 }
 
 /**
- * Criar um método que imprima no console um array com o UF dos cinco estados que mais possuem cidades,
- * seguidos da quantidade, em ordem decrescente. Você pode usar a função criada no tópico 2.
- * Exemplo de impressão: [“UF - 93”, “UF - 82”,“UF - 74”, “UF - 72”, “UF - 65”]
+ * Load All Cities saved on State dir 
  */
+async function loadAllCitiesSpliteByState() {
+    try {
+        var result = await fs.readdir(DIR_STATE, "utf-8")
+        let promises = result.map(async fileName => {
+            var citiesString = await fs.readFile(`${DIR_STATE}/${fileName}`, 'utf-8')
+            var cities = JSON.parse(citiesString)
+            //Split by "." in File Name and get the first element Ex. "CE.json"
+            let sigla = fileName.split(".")[0]
+            //Create State object and return
+            var state = {}
+            state.Sigla = sigla
+            state.cities = cities
+            return state
+        })
 
+        return Promise.all(promises)
+    } catch (err) {
+        console.error(`Error: showStatesHaveMoreCities  \n ${err} `)
+    }
+}
 
+showStatesHaveMoreCities()
 
+async function showStatesHaveMoreCities() {
+    let states = await loadAllCitiesSpliteByState()
+    //order list by cities length
+    states.sort((a, b) => a.cities.length - b.cities.length)
+    states.reverse()
+    let top5 = states.slice(0, 5)
 
-/**
- * Criar um método que imprima no console um array com o UF dos cinco estados que menos possuem cidades,
- * seguidos da quantidade, em ordem decrescente.Você pode usar a função criada no tópico 2.
- * Exemplo de impressão: [“UF - 30”, “UF- 27”, “UF - 25”, “UF - 23”, “UF - 21”]
- */
+    let table = top5.map(el => {
+        return {
+            Sigla: el.Sigla,
+            "Qtd. Cities": el.cities.length
+        }
+    })
 
+    console.table(table)
+}
 
+showStatesHaveLessCities()
 
+async function showStatesHaveLessCities() {
+    let states = await loadAllCitiesSpliteByState()
+    //order list by cities length
+    states.sort((a, b) => b.cities.length - a.cities.length)
+    states.reverse()
+    let top5 = states.slice(0, 5)
+    top5.reverse()
+    let table = top5.map(el => {
+        return {
+            Sigla: el.Sigla,
+            "Qtd. Cities": el.cities.length
+        }
+    })
 
-/**
- * Criar um método que imprima no console um array com a cidade de maior nome de cada estado,
- * seguida de seu UF. Por exemplo: [“Nome da Cidade – UF”, “Nome da Cidade – UF”, ...].
- */
-
-
-
-
-/**
- * Criar um método que imprima no console um array com a cidade de menor nome
- * de cada estado, seguida de seu UF. Por exemplo: [“Nome da Cidade – UF”, “Nome da Cidade – UF”, ...].
- */
-
-
-
-
-/**
- * Criar um método que imprima no console a cidade de maior nome entre todos os estados, seguido do seu UF.
- * Exemplo: “Nome da Cidade - UF"
- */
-
-
-
-
-/**
- * Criar um método que imprima no console a cidade de menor nome entre todos os estados, seguido do seu UF.
- * Exemplo: “Nome da Cidade - UF".
- */
+    console.table(table)
+}
