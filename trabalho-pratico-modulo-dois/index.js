@@ -1,7 +1,6 @@
 import { promises as fs } from 'fs'
 
 const DIR_STATE = "states"
-
 createFileStates()
 
 async function createFileStates() {
@@ -27,13 +26,12 @@ async function createFileStates() {
 
 }
 
-readCitiesFiles('DF')
+//readCitiesFiles('DF')
 
 async function readCitiesFiles(uf) {
     const data = JSON.parse(await fs.readFile(`${uf}.json`))
     console.log(`${uf}: ${data.length} cidades`)
 }
-
 /**
  * Load All Cities saved on State dir 
  */
@@ -58,7 +56,7 @@ async function loadAllCitiesSpliteByState() {
     }
 }
 
-showStatesHaveMoreCities()
+//showStatesHaveMoreCities()
 
 async function showStatesHaveMoreCities() {
     let states = await loadAllCitiesSpliteByState()
@@ -77,7 +75,7 @@ async function showStatesHaveMoreCities() {
     console.table(table)
 }
 
-showStatesHaveLessCities()
+//showStatesHaveLessCities()
 
 async function showStatesHaveLessCities() {
     let states = await loadAllCitiesSpliteByState()
@@ -94,4 +92,20 @@ async function showStatesHaveLessCities() {
     })
 
     console.table(table)
+}
+
+cityBigNameStates()
+
+async function cityBigNameStates() {
+    try {
+        let list = []
+        let states = await loadAllCitiesSpliteByState()
+        states.forEach(state => {
+            state.cityLongestName = state.cities.reduce((a, b) => a.Nome.length > b.Nome.length ? a : b)
+            list.push(`${state.cityLongestName.Nome} - ${state.Sigla}`)
+        })
+        console.log(list)
+    } catch (error) {
+        console.log(`Error: cityBigNameStates \n ${error}`)
+    }
 }
