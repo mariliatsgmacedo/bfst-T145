@@ -72,81 +72,85 @@ router.delete('/:id', async (req, res, next) => {
     }
 })
 
-// router.get('/', async (_req, res, next) => {
-//     try {
-//         const data = JSON.parse(await readFile('grades.json'))
-//         //delete data.nextId
-//         res.send(data)
-//     } catch (err) {
-//         next(err)
-//     }
-// })
+router.get('/', async (req, res, next) => {
+    try {
+        const data = JSON.parse(await readFile('grades.json'))
+        delete data.nextId
+        res.send(data)
+    } catch (err) {
+        next(err)
+    }
+})
 
-// router.get('/:id', async (req, res, next) => {
-//     try {
-//         const data = JSON.parse(await readFile('grades.json'))
-//         const student = data.grades.find(student => student.id === parseInt(req.params.id))
-//         res.send(student)
-//     } catch (err) {
-//         next(err)
-//     }
-// })
+router.get('/:id', async (req, res, next) => {
+    try {
+        const data = JSON.parse(await readFile('grades.json'))
+        const student = data.grades.find(student => student.id === parseInt(req.params.id))
+        res.send(student)
+    } catch (err) {
+        next(err)
+    }
+})
 
-// router.get('/:student/:subject', async (req, res, next) => {
-//     try {
-//         let gradeTotal = 0
-//         const data = JSON.parse(await readFile('grades.json'))
-//         data.grades
-//             .map(student => {
-//                 let name = student.student.toUpperCase()
-//                 let discipline = student.subject.toUpperCase()
-//                 let nameParam = req.params.student.toUpperCase()
-//                 let disciplineParam = req.params.subject.toUpperCase()
+//ToDo To Fix Router
 
-//                 if (name.includes(nameParam) && discipline.includes(disciplineParam)) {
-//                     gradeTotal += student.value
-//                 }
-//                 return gradeTotal
-//             })
+router.get('/:student/:subject', async (req, res, next) => {
+    try {
+        let gradeTotal = 0
+        const data = JSON.parse(await readFile('grades.json'))
+        data.grades
+            .map(student => {
+                let name = student.student.toUpperCase()
+                let discipline = student.subject.toUpperCase()
+                let nameParam = req.params.student.toUpperCase()
+                let disciplineParam = req.params.subject.toUpperCase()
 
-//         res.send(` Grades Sum Total: ${gradeTotal}`)
+                if (name.includes(nameParam) && discipline.includes(disciplineParam)) {
+                    gradeTotal += student.value
+                }
+                return gradeTotal
+            })
 
-//     } catch (err) {
-//         next(err)
-//     }
-// })
+        res.send(` Grades Sum Total: ${gradeTotal}`)
 
-// router.get('/:subject/:type', async (req, res, next) => {
-//     try {
-//         const data = JSON.parse(await readFile('grades.json'))
-//         let media = 0
-//         let sum = 0
-//         let cont = 0
-//         data.grades.map(student => {
-//             let discipline = student.subject.toUpperCase()
-//             let typeExercise = student.type.toUpperCase()
-//             let discParam = req.params.subject.toUpperCase()
-//             let typeExerciseParam = req.params.type.toUpperCase()
-//             let gradeExclusive = student.value
-
-//             if (discipline.includes(discParam) && typeExercise.includes(typeExerciseParam)) {
-//                 cont++
-//                 sum += gradeExclusive
-//                 media = (sum / cont)
-//             }
-//             return media
-//         })
-
-//         res.send(`Media: ${media}`)
-
-//     } catch (err) {
-//         next(err)
-//     }
-
-// })
+    } catch (err) {
+        next(err)
+    }
+})
 
 router.get('/:subject/:type', async (req, res, next) => {
-    
+    try {
+        const data = JSON.parse(await readFile('grades.json'))
+
+        let media = 0
+        let sum = 0
+        let cont = 0
+
+        data.grades.map(student => {
+            let discipline = student.subject.toUpperCase()
+            let typeExercise = student.type.toUpperCase()
+            let discParam = req.params.subject.toUpperCase()
+            let typeExerciseParam = req.params.type.toUpperCase()
+            let gradeExclusive = student.value
+
+            if (discipline.includes(discParam) && typeExercise.includes(typeExerciseParam)) {
+                cont++
+                sum += gradeExclusive
+                media = (sum / cont)
+            }
+            return media
+        })
+
+        res.send(`Media: ${media}`)
+
+    } catch (err) {
+        next(err)
+    }
+
+})
+
+router.get('/:subject/:type', async (req, res, next) => {
+
     try {
         let biggerGrades = []
 
@@ -160,11 +164,8 @@ router.get('/:subject/:type', async (req, res, next) => {
             let gradeExclusive = student.value
 
             if (discipline.includes(discParam) && typeExercise.includes(typeExerciseParam)) {
-               // console.log(student.id, discipline, typeExercise, gradeExclusive);
                 biggerGrades.push(gradeExclusive)
                 biggerGrades.sort((a, b) => { return b - a })
-               
-
             }
 
             return biggerGrades
