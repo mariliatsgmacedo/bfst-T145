@@ -1,0 +1,17 @@
+{
+  "name": "desafio-modulo-dois",
+  "version": "1.0.0",
+  "description": "Uma grade deve possuir os campos abaixo:\r - id (int): identificador único da grade. Deve ser gerado automaticamente pela API, e garantido que não se repita.\r - student (string): nome do aluno. Exemplo: “Guilherme Assis”.\r - subject (string): nome da matéria. Exemplo: “Matemática”\r - type (string): nome da atividade. Exemplo: “Prova final”.\r - value (float): nota da atividade. Exemplo: 10.\r - timestamp (string): horário do lançamento. Exemplo: 2020-05-19T18:21:24.964Z. Dica: utilizar o “new Date()” do JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
